@@ -5,7 +5,7 @@
 
 import getKeybindingsServiceOverride from '@codingame/monaco-vscode-keybindings-service-override';
 import { LogLevel } from '@codingame/monaco-vscode-api';
-import '../../../../resources/vsix/github-vscode-theme.vsix';
+// import '../../../../resources/vsix/github-vscode-theme.vsix';
 import { MessageTransports } from 'vscode-languageclient';
 import type { WrapperConfig } from 'monaco-editor-wrapper';
 import { configureDefaultWorkerFactory } from 'monaco-editor-wrapper/workers/workerLoaders';

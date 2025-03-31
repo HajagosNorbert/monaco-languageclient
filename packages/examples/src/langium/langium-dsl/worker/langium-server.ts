@@ -25,4 +25,24 @@ const context = {
 const { shared } = createLangiumGrammarServices(context);
 
 // Start the language server with the shared services
-startLanguageServer(shared);
+// startLanguageServer(shared);
+const services = shared;
+const connection = services.lsp.Connection;
+if (!connection) {
+    throw new Error('Starting a language server requires the languageServer.Connection service to be set.');
+}
+
+connection.onCompletion((_a) => [{ label: 'hi' }, { label: 'there' }]);
+connection.onInitialize(params => {
+    return services.lsp.LanguageServer.initialize(params);
+});
+connection.onInitialized(params => {
+    services.lsp.LanguageServer.initialized(params);
+});
+
+// Make the text document manager listen on the connection for open, change and close text document events.
+const documents = services.workspace.TextDocuments;
+documents.listen(connection);
+
+// Start listening for incoming messages from the client.
+connection.listen();
