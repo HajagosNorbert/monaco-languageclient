@@ -4,10 +4,7 @@
  * ------------------------------------------------------------------------------------------ */
 /// <reference lib="WebWorker" />
 
-import { EmptyFileSystem } from 'langium';
-import { type DefaultSharedModuleContext, startLanguageServer } from 'langium/lsp';
-import { createLangiumGrammarServices } from 'langium/grammar';
-import { BrowserMessageReader, BrowserMessageWriter, createConnection } from 'vscode-languageserver/browser.js';
+import { BrowserMessageReader, BrowserMessageWriter, createConnection, TextDocumentSyncKind, type InitializeResult } from 'vscode-languageserver/browser.js';
 
 /* browser specific setup code */
 const messageReader = new BrowserMessageReader(self as DedicatedWorkerGlobalScope);
@@ -17,35 +14,31 @@ messageReader.listen((message) => {
     console.log('Received message from main thread:', message);
 });
 
-// Inject the shared services and language-specific services
-const context = {
-    connection: createConnection(messageReader, messageWriter),
-    ...EmptyFileSystem
-} as unknown as DefaultSharedModuleContext;
-const { shared } = createLangiumGrammarServices(context);
+const connection = createConnection(messageReader, messageWriter);
 
-// Start the language server with the shared services
-// startLanguageServer(shared);
-const services = shared;
-const connection = services.lsp.Connection;
-if (!connection) {
-    throw new Error('Starting a language server requires the languageServer.Connection service to be set.');
-}
 
 connection.onCompletion((_a) => [{ label: 'hi' }, { label: 'there' }]);
-connection.onInitialize(params => {
-    return services.lsp.LanguageServer.initialize(params);
-});
-connection.onInitialized(params => {
-    services.lsp.LanguageServer.initialized(params);
+connection.onInitialize((params: InitializeParams) => {
+    connection.console.log("initing!")
+
+    const result: InitializeResult = {
+        capabilities: {
+            textDocumentSync: TextDocumentSyncKind.Incremental,
+            // Tell the client that this server supports code completion.
+            completionProvider: {
+                resolveProvider: true,
+                triggerCharacters: ["<", "/"],
+            },
+
+            hoverProvider: true,
+        }
+    };
+    return result;
 });
 
 connection.onHover((s) => {
     return { contents: { value: "hihihihihi",kind:"plaintext" } }
 })
-// Make the text document manager listen on the connection for open, change and close text document events.
-const documents = services.workspace.TextDocuments;
-documents.listen(connection);
 
 // Start listening for incoming messages from the client.
 connection.listen();
