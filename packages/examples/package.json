@@ -71,6 +71,7 @@
     "LICENSE"
   ],
   "dependencies": {
+    "xmlui": "*",
     "@codingame/monaco-vscode-configuration-service-override": "~15.0.2",
     "@codingame/monaco-vscode-cpp-default-extension": "~15.0.2",
     "@codingame/monaco-vscode-debug-service-override": "~15.0.2",

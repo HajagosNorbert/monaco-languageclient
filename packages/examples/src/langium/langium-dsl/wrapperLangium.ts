@@ -9,7 +9,9 @@ import { setupLangiumClientExtended } from './config/extendedConfig.js';
 import { setupLangiumClientClassic } from './config/classicConfig.js';
 import { delayExecution, disableElement } from '../../common/client/utils.js';
 import text from '../../../resources/langium/langium-dsl/example.langium?raw';
-import workerUrl from './worker/langium-server?worker&url';
+// import workerUrl from './worker/langium-server?worker&url';
+// import workerUrl from '/home/ez/code/work/xmlui/xmlui/dist/language-server-web-worker.mjs?worker&url';
+import workerUrl from 'xmlui/language-server-web-worker?worker&url';
 
 export const runLangiumDslWrapper = async (extendedMode: boolean) => {
     try {
@@ -82,4 +84,3 @@ export const runLangiumDslWrapper = async (extendedMode: boolean) => {
         console.error(e);
     }
 };
-
