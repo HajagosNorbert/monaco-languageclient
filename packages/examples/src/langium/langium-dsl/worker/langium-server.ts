@@ -40,6 +40,9 @@ connection.onInitialized(params => {
     services.lsp.LanguageServer.initialized(params);
 });
 
+connection.onHover((s) => {
+    return { contents: { value: "hihihihihi",kind:"plaintext" } }
+})
 // Make the text document manager listen on the connection for open, change and close text document events.
 const documents = services.workspace.TextDocuments;
 documents.listen(connection);
