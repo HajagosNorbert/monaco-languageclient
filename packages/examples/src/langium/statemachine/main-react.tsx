@@ -9,12 +9,18 @@ import { BrowserMessageReader, BrowserMessageWriter } from 'vscode-languageclien
 import type { TextContents } from 'monaco-editor-wrapper';
 import { MonacoEditorReactComp } from '@typefox/monaco-editor-react';
 import { createLangiumGlobalConfig } from './config/wrapperStatemachineConfig.js';
-import { loadStatemachineWorkerRegular } from './main.js';
+// import { loadStatemachineWorkerRegular } from './main.js';
 import text from '../../../resources/langium/statemachine/example.statemachine?raw';
 import { disableElement } from '../../common/client/utils.js';
 
+import workerUrl from 'xmlui/language-server-web-worker?worker&url';
+// import workerUrl from './worker/statemachine-server?worker&url';
+
 export const runStatemachineReact = async () => {
-    const worker = loadStatemachineWorkerRegular();
+    const worker =  new Worker(workerUrl, {
+        type: 'module',
+        name: 'Statemachine Server Regular',
+    });
     const reader = new BrowserMessageReader(worker);
     const writer = new BrowserMessageWriter(worker);
     reader.listen((message) => {
