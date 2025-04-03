@@ -77,7 +77,6 @@
     "packages/client",
     "packages/vscode-ws-jsonrpc",
     "packages/wrapper",
-    "packages/wrapper-react",
-    "packages/examples"
+    "packages/wrapper-react"
   ]
 }
