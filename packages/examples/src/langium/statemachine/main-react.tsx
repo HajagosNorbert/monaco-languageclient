@@ -10,11 +10,16 @@ import type { TextContents } from 'monaco-editor-wrapper';
 import { MonacoEditorReactComp } from '@typefox/monaco-editor-react';
 import { createLangiumGlobalConfig } from './config/wrapperStatemachineConfig.js';
 // import { loadStatemachineWorkerRegular } from './main.js';
-import text from '../../../resources/langium/statemachine/example.statemachine?raw';
-import { disableElement } from '../../common/client/utils.js';
 
+const text = '<Button />';
 import workerUrl from 'xmlui/language-server-web-worker?worker&url';
 // import workerUrl from './worker/statemachine-server?worker&url';
+const disableElement = (id: string, disabled: boolean) => {
+    const button = document.getElementById(id) as HTMLButtonElement | HTMLInputElement | null;
+    if (button !== null) {
+        button.disabled = disabled;
+    }
+};
 
 export const runStatemachineReact = async () => {
     const worker =  new Worker(workerUrl, {
