@@ -18,20 +18,6 @@ export const definedViteConfig = defineConfig({
         rollupOptions: {
             input: {
                 index: path.resolve(__dirname, 'index.html'),
-                bare: path.resolve(__dirname, 'packages/examples/bare.html'),
-                json: path.resolve(__dirname, 'packages/examples/json.html'),
-                browser: path.resolve(__dirname, 'packages/examples/browser.html'),
-                langium: path.resolve(__dirname, 'packages/examples/langium.html'),
-                statemachine: path.resolve(__dirname, 'packages/examples/statemachine.html'),
-                python: path.resolve(__dirname, 'packages/examples/python.html'),
-                groovy: path.resolve(__dirname, 'packages/examples/groovy.html'),
-                clangd: path.resolve(__dirname, 'packages/examples/clangd.html'),
-                appPlayground: path.resolve(__dirname, 'packages/examples/appPlayground.html'),
-                twoLangaugeClients: path.resolve(__dirname, 'packages/examples/two_langauge_clients.html'),
-                reactAppPlayground: path.resolve(__dirname, 'packages/examples/react_appPlayground.html'),
-                reactStatemachine: path.resolve(__dirname, 'packages/examples/react_statemachine.html'),
-                reactPython: path.resolve(__dirname, 'packages/examples/react_python.html'),
-                tsExtHost: path.resolve(__dirname, 'packages/examples/ts.html')
             }
         }
     },
